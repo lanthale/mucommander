@@ -18,10 +18,6 @@
 
 package com.mucommander;
 
-import com.formdev.flatlaf.FlatDarculaLaf;
-import com.formdev.flatlaf.FlatDarkLaf;
-import com.formdev.flatlaf.FlatIntelliJLaf;
-import com.formdev.flatlaf.FlatLightLaf;
 import com.mucommander.auth.CredentialsManager;
 import com.mucommander.bookmark.file.BookmarkProtocolProvider;
 import com.mucommander.command.Command;
@@ -57,8 +53,6 @@ import com.mucommander.ui.tools.ToolsEnvironment;
 import com.mucommander.updates.VersionChecker;
 import com.mucommander.utils.MuLogging;
 import com.mucommander.utils.text.Translator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
@@ -70,6 +64,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * trolCommander launcher.
@@ -103,11 +99,11 @@ public class TrolCommander {
      * This method will return immediately if the application has already been launched when it is called.
      */
     public static void waitUntilLaunched() {
-        getLogger().debug("called, thread="+Thread.currentThread());
+        getLogger().log(Level.FINE, "called, thread="+Thread.currentThread());
         synchronized(LAUNCH_LOCK) {
             while (isLaunching) {
                 try {
-                    getLogger().debug("waiting");
+                    getLogger().log(Level.FINE,"waiting");
                     LAUNCH_LOCK.wait();
                 } catch (InterruptedException e) {
                     // will loop
@@ -126,7 +122,7 @@ public class TrolCommander {
         if (useSplash && splashScreen != null) {
             splashScreen.setLoadingMessage(message);
         }
-        getLogger().trace(message);
+        getLogger().log(Level.FINE,message);
     }
 
 
@@ -428,7 +424,7 @@ public class TrolCommander {
                 Constructor<?> constructor = osxIntegrationClass.getConstructor();
                 constructor.newInstance();
             } catch(Exception e) {
-                getLogger().debug("Exception thrown while initializing Mac OS X integration", e);
+                getLogger().log(Level.FINE,"Exception thrown while initializing Mac OS X integration", e);
             }
         }
 
@@ -460,7 +456,7 @@ public class TrolCommander {
                 Profiler.stop("init-extensions-manager");
                 ExtensionManager.addExtensionsToClasspath();
             } catch(Exception e) {
-                getLogger().debug("Failed to add extensions to the classpath", e);
+                getLogger().log(Level.FINE,"Failed to add extensions to the classpath", e);
             }
 
             // This the property is supposed to have the java.net package use the proxy defined in the system settings
@@ -565,7 +561,7 @@ public class TrolCommander {
                 CommandManager.writeCommands();
             } catch(Exception e) {
                 System.out.println("###############################");
-                getLogger().debug("Caught exception", e);
+                getLogger().log(Level.FINE,"Caught exception", e);
                 // There's really nothing we can do about this...
             }
 
@@ -724,10 +720,7 @@ public class TrolCommander {
 
         @Override
         void run() throws Exception {
-            FlatLightLaf.installLafInfo();
-            FlatDarculaLaf.installLafInfo();
-            FlatDarkLaf.installLafInfo();
-            FlatIntelliJLaf.installLafInfo();
+
         }
     }
 
@@ -753,7 +746,7 @@ public class TrolCommander {
 
         @Override
         void run() throws Exception {
-            getLogger().info("Current OS family: {}", OsFamily.getCurrent());
+            getLogger().log(Level.FINE,"Current OS family: {}", OsFamily.getCurrent());
         }
     }
 
@@ -809,7 +802,7 @@ public class TrolCommander {
         Profiler.start("init");
         Profiler.start("loading");
 
-        getLogger().info("Current OS family: {}", OsFamily.getCurrent());
+        getLogger().log(Level.FINE,"Current OS family: {}", OsFamily.getCurrent());
 
         String lang = System.getProperty("user.language");
         String country = System.getProperty("user.country");
@@ -943,7 +936,7 @@ public class TrolCommander {
                 splashScreen.dispose();
             }
 
-            getLogger().error("Startup failed", t);
+            getLogger().log(Level.FINE,"Startup failed", t);
             
             // Display an error dialog with a proper message and error details
             InformationDialog.showErrorDialog(null, null, Translator.get("startup_error"), null, t);
@@ -992,7 +985,7 @@ public class TrolCommander {
     private static Logger getLogger() {
         if (logger == null) {
             Profiler.start("create-logger");
-            logger = LoggerFactory.getLogger(TrolCommander.class);
+            logger = Logger.getLogger("ru.trolsoft");
             Profiler.stop("create-logger");
         }
         return logger;
