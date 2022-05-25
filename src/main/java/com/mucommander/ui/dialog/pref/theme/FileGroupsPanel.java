@@ -1,0 +1,111 @@
+/*
+ * This file is part of trolCommander, http://www.trolsoft.ru/en/soft/trolcommander
+ * Copyright (C) 2013-2016 Oleg Trifonov
+ *
+ * trolCommander is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * trolCommander is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+package com.mucommander.ui.dialog.pref.theme;
+
+import com.mucommander.conf.TcConfigurations;
+import com.mucommander.conf.TcPreference;
+import com.mucommander.conf.TcPreferencesAPI;
+import com.mucommander.utils.text.Translator;
+import com.mucommander.ui.chooser.PreviewLabel;
+import com.mucommander.ui.dialog.pref.PreferencesDialog;
+import com.mucommander.ui.layout.ProportionalGridPanel;
+import com.mucommander.ui.main.table.FileGroupResolver;
+import com.mucommander.ui.theme.ThemeData;
+import com.mucommander.ui.theme.ThemeId;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import java.awt.BorderLayout;
+
+/**
+ * @author Oleg Trifonov
+ */
+public class FileGroupsPanel extends ThemeEditorPanel implements ThemeId {
+
+    private static final int NUMBER_OF_GROUPS = 10;
+
+    private final JTextField[] fileMasks = new JTextField[NUMBER_OF_GROUPS];
+
+    /**
+     * Creates a new <code>FilePanel</code>.
+     * @param parent   dialog containing the panel
+     * @param data     theme to edit.
+     */
+    FileGroupsPanel(final PreferencesDialog parent, ThemeData data) {
+        super(parent, Translator.get("theme_editor.file_groups"), data);
+
+        DocumentListener documentListener = new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                parent.setCommitButtonsEnabled(true);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                parent.setCommitButtonsEnabled(true);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+            }
+        };
+
+        FilePreviewPanel preview = new FilePreviewPanel(themeData, true);
+        JPanel gridPanel = new ProportionalGridPanel(3);
+
+        // Header
+        gridPanel.add(new JLabel());
+        gridPanel.add(createCaptionLabel("theme_editor.normal_color"));
+        gridPanel.add(createCaptionLabel("theme_editor.filemask"));
+        TcPreferencesAPI prefs = TcConfigurations.getPreferences();
+        for (int i = 0; i < NUMBER_OF_GROUPS; i++) {
+            TcPreference preference = TcPreference.values()[TcPreference.FILE_GROUP_1_MASK.ordinal() + i];
+            String mask = prefs.getVariable(preference);
+            gridPanel.add(createCaptionLabelWithTitle(Translator.get("theme_editor.group_") + " " + (i+1)));
+            ColorButton colorButton  = new ColorButton(parent, themeData, FILE_GROUP_1_FOREGROUND_COLOR + i, PreviewLabel.FOREGROUND_COLOR_PROPERTY_NAME, preview);
+            gridPanel.add(colorButton);
+            fileMasks[i] = new JTextField(24);
+            fileMasks[i].setText(mask);
+            gridPanel.add(fileMasks[i]);
+            fileMasks[i].getDocument().addDocumentListener(documentListener);
+        }
+
+
+        setLayout(new BorderLayout());
+        add(gridPanel, BorderLayout.WEST);
+        add(preview, BorderLayout.EAST);
+    }
+
+
+    @Override
+    protected void commit() {
+        TcPreferencesAPI prefs = TcConfigurations.getPreferences();
+        for (int i = 0; i < NUMBER_OF_GROUPS; i++) {
+            TcPreference preference = TcPreference.values()[TcPreference.FILE_GROUP_1_MASK.ordinal() + i];
+            prefs.setVariable(preference, fileMasks[i].getText().trim());
+        }
+        try {
+            TcConfigurations.savePreferences();
+        } catch(Exception ignore) {
+        }
+        FileGroupResolver.getInstance().init();
+    }
+}
