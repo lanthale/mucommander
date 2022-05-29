@@ -125,7 +125,7 @@ public class SevenZipJBindingROArchiveFile extends AbstractROArchiveFile {
         boolean isDirectory = (Boolean)sevenZipFile.getProperty(i, PropID.IS_FOLDER);
         Date time = (Date) sevenZipFile.getProperty(i, PropID.LAST_MODIFICATION_TIME);
         Long size = (Long) sevenZipFile.getProperty(i, PropID.SIZE);
-        if (org.apache.commons.lang.StringUtils.isEmpty(path)) {
+        if (org.apache.commons.lang3.StringUtils.isEmpty(path)) {
             path = file.getNameWithoutExtension();
         }
         path = path.replace(File.separatorChar, ArchiveEntry.SEPARATOR_CHAR);

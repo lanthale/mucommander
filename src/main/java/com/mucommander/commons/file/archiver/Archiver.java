@@ -24,7 +24,7 @@ import com.mucommander.commons.file.FileOperation;
 import com.mucommander.commons.file.UnsupportedFileOperationException;
 import com.mucommander.commons.io.BufferedRandomOutputStream;
 import com.mucommander.commons.io.RandomAccessOutputStream;
-import org.apache.hadoop.io.compress.bzip2.CBZip2OutputStream;
+import org.apache.commons.compress.compressors.bzip2.BZip2CompressorOutputStream;
 
 import java.io.BufferedOutputStream;
 import java.io.IOException;
@@ -256,7 +256,7 @@ public abstract class Archiver {
         out.write('B');
         out.write('Z');
 
-        return new CBZip2OutputStream(out);
+        return new BZip2CompressorOutputStream(out);
     }
 
 

@@ -21,7 +21,7 @@ import com.mucommander.command.Command;
 import com.mucommander.commons.io.StreamUtils;
 import com.mucommander.commons.runtime.OsFamily;
 import com.mucommander.process.*;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.*;
 import java.util.ArrayList;

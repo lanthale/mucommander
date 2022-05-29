@@ -11,6 +11,11 @@ import org.jets3t.service.S3ServiceException;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.jets3t.service.ServiceException;
+import org.jets3t.service.StorageObjectsChunk;
+import org.jets3t.service.model.StorageObject;
 
 /**
  * Super class of {@link S3Root}, {@link S3Bucket} and {@link S3Object}.
@@ -55,8 +60,8 @@ public abstract class S3File extends ProtocolFile {
     
     protected AbstractFile[] listObjects(String bucketName, String prefix, S3File parent) throws IOException {
         try {
-            S3ObjectsChunk chunk = service.listObjectsChunked(bucketName, prefix, "/", Constants.DEFAULT_OBJECT_LIST_CHUNK_SIZE, null, true);
-            org.jets3t.service.model.S3Object[] objects = chunk.getObjects();
+            StorageObjectsChunk chunk = service.listObjectsChunked(bucketName, prefix, "/", Constants.DEFAULT_OBJECT_LIST_CHUNK_SIZE, null, true);
+            StorageObject[] objects = chunk.getObjects();
             String[] commonPrefixes = chunk.getCommonPrefixes();
 
             if (objects.length == 0 && !prefix.isEmpty()) {
@@ -69,7 +74,7 @@ public abstract class S3File extends ProtocolFile {
             int i = 0;
             String objectKey;
 
-            for(org.jets3t.service.model.S3Object object : objects) {
+            for(StorageObject object : objects) {
                 // Discard the object corresponding to the prefix itself
                 objectKey = object.getKey();
                 if(objectKey.equals(prefix))
@@ -109,7 +114,10 @@ public abstract class S3File extends ProtocolFile {
         }
         catch(S3ServiceException e) {
             throw getIOException(e);
+        } catch (ServiceException ex) {
+            Logger.getLogger(S3File.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return null;
     }
 
 

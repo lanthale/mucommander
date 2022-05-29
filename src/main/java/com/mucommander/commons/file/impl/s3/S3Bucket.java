@@ -10,6 +10,8 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.logging.Level;
+import org.jets3t.service.ServiceException;
 
 /**
  * <code>S3Bucket</code> represents an Amazon S3 bucket.
@@ -70,6 +72,8 @@ public class S3Bucket extends S3File {
             service.deleteBucket(bucketName);
         } catch(S3ServiceException e) {
             throw getIOException(e);
+        } catch (ServiceException ex) {
+            java.util.logging.Logger.getLogger(S3Bucket.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

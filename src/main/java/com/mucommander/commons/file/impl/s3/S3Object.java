@@ -14,6 +14,9 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.logging.Level;
+import org.jets3t.service.ServiceException;
+import org.jets3t.service.model.StorageOwner;
 
 /**
  * <code>S3Object</code> represents an Amazon S3 object.
@@ -151,6 +154,8 @@ public class S3Object extends S3File {
             atts.setSize(0);
         } catch(S3ServiceException e) {
             throw getIOException(e);
+        } catch (ServiceException ex) {
+            java.util.logging.Logger.getLogger(S3Object.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -190,6 +195,8 @@ public class S3Object extends S3File {
         }
         catch(S3ServiceException e) {
             throw getIOException(e);
+        } catch (ServiceException ex) {
+            java.util.logging.Logger.getLogger(S3Object.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -207,7 +214,10 @@ public class S3Object extends S3File {
         }
         catch(S3ServiceException e) {
             throw getIOException(e);
+        } catch (ServiceException ex) {
+            java.util.logging.Logger.getLogger(S3Object.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return null;
     }
 
     @Override
@@ -431,6 +441,8 @@ public class S3Object extends S3File {
                     this.offset = offset;
                 } catch(S3ServiceException e) {
                     throw getIOException(e);
+                } catch (ServiceException ex) {
+                    java.util.logging.Logger.getLogger(S3Object.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
@@ -587,13 +599,13 @@ public class S3Object extends S3File {
             setDate(object.getLastModifiedDate().getTime());
             setPermissions(DEFAULT_PERMISSIONS);
             // Note: owner is null for common prefix objects
-            S3Owner owner = object.getOwner();
+            StorageOwner owner = object.getOwner();
             setOwner(owner==null?null:owner.getDisplayName());
         }
 
         private void fetchAttributes() throws AuthException {
             try {
-                setAttributes(service.getObjectDetails(bucketName, getObjectKey(), null, null, null, null));
+                setAttributes((org.jets3t.service.model.S3Object) service.getObjectDetails(bucketName, getObjectKey(), null, null, null, null));
                 // Object does not exist on the server
                 setExists(true);
             } catch(S3ServiceException e) {
@@ -607,6 +619,8 @@ public class S3Object extends S3File {
                 setOwner(null);
 
                 handleAuthException(e, fileURL);
+            } catch (ServiceException ex) {
+                java.util.logging.Logger.getLogger(S3Object.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 

@@ -29,14 +29,9 @@ public class S3ProtocolProvider implements ProtocolProvider {
         String bucketName;
 
         if (instantiationParams.length == 0) {
-            try {
-                service = new RestS3Service(new AWSCredentials(credentials.getLogin(), credentials.getPassword()));
-                Jets3tProperties props = new Jets3tProperties();
-                props.setProperty("s3service.s3-endpoint", url.getHost());
-            }
-            catch(S3ServiceException e) {
-                throw S3File.getIOException(e, url);
-            }
+            service = new RestS3Service(new AWSCredentials(credentials.getLogin(), credentials.getPassword()));
+            Jets3tProperties props = new Jets3tProperties();
+            props.setProperty("s3service.s3-endpoint", url.getHost());
         } else {
             service = (S3Service)instantiationParams[0];
         }
