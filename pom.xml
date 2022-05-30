@@ -155,16 +155,42 @@
             <artifactId>jets3t</artifactId>
             <version>0.9.7</version>
         </dependency>
-<dependency>
-    <groupId>com.sshtools</groupId>
-    <artifactId>sshapi-core</artifactId>
-    <version>1.1.2</version>
-</dependency>
-<dependency>
-    <groupId>com.sshtools</groupId>
-    <artifactId>vfs-sftp</artifactId>
-    <version>3.2.0</version>
-</dependency>
+        <dependency>
+            <groupId>com.sshtools</groupId>
+            <artifactId>j2ssh-maverick</artifactId>
+            <version>1.5.5</version>
+        </dependency>
+        <dependency>
+            <groupId>sshtools</groupId>
+            <artifactId>j2ssh-core</artifactId>
+            <version>0.2.9</version>
+        </dependency>
+        <dependency>
+            <groupId>sshtools</groupId>
+            <artifactId>j2ssh-common</artifactId>
+            <version>0.2.9</version>
+        </dependency>
+        <dependency>
+            <groupId>org.samba.jcifs</groupId>
+            <artifactId>jcifs</artifactId>
+            <version>1.3.14-kohsuke-1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.vmware</groupId>
+            <artifactId>vijava</artifactId>
+            <version>5.1</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.xml.ws</groupId>
+            <artifactId>jaxws-api</artifactId>
+            <version>2.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.vmware</groupId>
+            <artifactId>transport</artifactId>
+            <version>1.0.0-RELEASE</version>
+        </dependency>
+
 
 
 
