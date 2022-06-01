@@ -27,6 +27,7 @@ import com.mucommander.ui.main.FolderPanel;
 import com.mucommander.ui.main.WindowManager;
 
 import java.io.File;
+import java.util.List;
 
 
 /**
@@ -42,14 +43,14 @@ class EAWTHandler implements AboutHandler, PreferencesHandler, AppReOpenedListen
         Application app = Application.getApplication();
 
         // Enable the 'About' menu item
-        app.setAboutHandler(this);
+        //app.setAboutHandler(this);
 
         // Enable the 'Preferences' menu item
-        app.setPreferencesHandler(this);
+        //app.setPreferencesHandler(this);
 
-        app.setOpenFileHandler(this);
-        app.setPrintFileHandler(this);
-        app.setQuitHandler(this);
+        //app.setOpenFileHandler(this);
+        //app.setPrintFileHandler(this);
+        //app.setQuitHandler(this);
     }
 
     @Override
@@ -69,7 +70,8 @@ class EAWTHandler implements AboutHandler, PreferencesHandler, AppReOpenedListen
         // when muCommander is not started yet. In this case, this method is called while Launcher is still busy
         // launching the application (no mainframe exists yet).
         TrolCommander.waitUntilLaunched();
-        for (File f : openFilesEvent.getFiles()) {
+        List<File> files = openFilesEvent.getFiles();
+        for (File f : files) {
             AbstractFile file = FileFactory.getFile(f.toString());
             if (file == null) {
                 continue;

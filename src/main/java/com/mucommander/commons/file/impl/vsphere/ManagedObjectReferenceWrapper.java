@@ -20,7 +20,7 @@ public class ManagedObjectReferenceWrapper {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result
-				+ ((mor.getValue() == null) ? 0 : mor.getValue().hashCode());
+				+ ((mor.getVal() == null) ? 0 : mor.getVal().hashCode());
 		result = prime * result
 				+ ((mor.getType() == null) ? 0 : mor.getType().hashCode());
 		return result;
@@ -35,10 +35,10 @@ public class ManagedObjectReferenceWrapper {
 		if (getClass() != obj.getClass())
 			return false;
 		ManagedObjectReferenceWrapper other = (ManagedObjectReferenceWrapper) obj;
-		if (mor.getValue() == null) {
-			if (other.mor.getValue() != null)
+		if (mor.getVal() == null) {
+			if (other.mor.getVal() != null)
 				return false;
-		} else if (!mor.getValue().equals(other.mor.getValue()))
+		} else if (!mor.getVal().equals(other.mor.getVal()))
 			return false;
 		if (mor.getType() == null) {
             return other.mor.getType() == null;
@@ -47,7 +47,7 @@ public class ManagedObjectReferenceWrapper {
 
 	@Override
 	public String toString() {
-		return "ManagedObjectReferenceWrapper [type=" + mor.getType() + ", value=" + mor.getValue() + "]";
+		return "ManagedObjectReferenceWrapper [type=" + mor.getType() + ", value=" + mor.getVal() + "]";
 	}
 
 	/**

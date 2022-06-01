@@ -21,7 +21,7 @@ package com.mucommander.commons.file.util;
 
 import com.dd.plist.BinaryPropertyListParser;
 import com.dd.plist.NSString;
-import com.dd.plist.PropertyListFormatException;
+//import com.dd.plist.PropertyListFormatException;
 import com.mucommander.commons.file.AbstractFile;
 import com.mucommander.commons.io.StreamUtils;
 import com.mucommander.commons.runtime.OsFamily;
@@ -33,6 +33,7 @@ import org.slf4j.LoggerFactory;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -75,10 +76,13 @@ public class OSXFileUtils {
         try {
             NSString comment = (NSString) BinaryPropertyListParser.parse(bytes);
             return comment.getContent();
-        } catch (UnsupportedEncodingException | PropertyListFormatException e) {
+        } catch (UnsupportedEncodingException e) {
             LOGGER.error("failed to read comment of: " + file.getAbsolutePath());
             return null;
+        } catch (Exception ex) {
+            LOGGER.error("failed to read comment of: " + file.getAbsolutePath());
         }
+        return null;
 
     }
 }

@@ -6,8 +6,8 @@ import java.awt.Insets;
 import javax.swing.JTabbedPane;
 import javax.swing.plaf.TabbedPaneUI;
 
-import com.apple.laf.AquaTabbedPaneContrastUI;
-import com.apple.laf.AquaTabbedPaneUI;
+//import com.apple.laf.AquaTabbedPaneContrastUI;
+//import com.apple.laf.AquaTabbedPaneUI;
 
 public class TabbedPaneUICustomizer {
 
@@ -18,7 +18,7 @@ public class TabbedPaneUICustomizer {
 	public static void customizeTabbedPaneUI(JTabbedPane tabbedPane) {
 		TabbedPaneUI tabbedPaneUI = tabbedPane.getUI();
 
-        if (tabbedPaneUI instanceof AquaTabbedPaneContrastUI) {
+        /*if (tabbedPaneUI instanceof AquaTabbedPaneContrastUI) {
 			tabbedPane.setUI(new CompactAquaTabbedPaneContrastUI());
 		} else if (tabbedPaneUI instanceof AquaTabbedPaneUI) {
 			tabbedPane.setUI(new CompactAquaTabbedPaneUI());
@@ -41,10 +41,7 @@ public class TabbedPaneUICustomizer {
 		protected Insets getContentDrawingInsets(int arg0) {
 			return EMPTY_INSETS;
 		}
-
-		/**
-		 * No content border
-		 */
+		
 		@Override
 		protected void paintContentBorder(final Graphics g, final int tabPlacement, final int selectedIndex) {
 		}
@@ -67,11 +64,10 @@ public class TabbedPaneUICustomizer {
 			return EMPTY_INSETS;
 		}
 
-		/**
-		 * No content border
-		 */
+		
 		@Override
 		protected void paintContentBorder(final Graphics g, final int tabPlacement, final int selectedIndex) {
 		}
+*/
 	}
 }

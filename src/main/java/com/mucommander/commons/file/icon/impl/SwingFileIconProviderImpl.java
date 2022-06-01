@@ -19,7 +19,7 @@
 
 package com.mucommander.commons.file.icon.impl;
 
-import ch.randelshofer.quaqua.osx.OSXFile;
+//import ch.randelshofer.quaqua.osx.OSXFile;
 import com.mucommander.commons.file.AbstractFile;
 import com.mucommander.commons.file.FileProtocols;
 import com.mucommander.commons.file.icon.CacheableFileIconProvider;
@@ -89,7 +89,7 @@ class SwingFileIconProviderImpl extends LocalFileIconProvider implements Cacheab
         } catch (IOException e) {
             e.printStackTrace();
         }
-        OSXFile.setNativePath(FileUtils.getJarPath() + File.separator);
+//        OSXFile.setNativePath(FileUtils.getJarPath() + File.separator);
     }
 
 
@@ -108,9 +108,9 @@ class SwingFileIconProviderImpl extends LocalFileIconProvider implements Cacheab
             // try to use quaqua OSXFile
             prepareQuaquaLibraries();
             // use ugly JFileChooser if error
-            if (!OSXFile.canWorkWithAliases()) {
+/*            if (!OSXFile.canWorkWithAliases()) {
                 fileChooser = new JFileChooser();
-            }
+            }*/
         } else {
             fileSystemView = FileSystemView.getFileSystemView();
         }
@@ -156,13 +156,13 @@ class SwingFileIconProviderImpl extends LocalFileIconProvider implements Cacheab
             } else {
                 if (fileChooser == null) {
                     if (RetinaImageIcon.IS_RETINA) {
-                        Icon icon = OSXFile.getIcon(javaIoFile, preferredSize*2);
+                        Icon icon = null;//OSXFile.getIcon(javaIoFile, preferredSize*2);
                         if (icon instanceof ImageIcon) {
                             ImageIcon imageIcon = (ImageIcon)icon;
                             return new RetinaImageIcon(imageIcon.getImage());
                         }
                     }
-                    return OSXFile.getIcon(javaIoFile, preferredSize);
+                    return null; //OSXFile.getIcon(javaIoFile, preferredSize);
                 }
                 return fileChooser.getIcon(javaIoFile);
             }

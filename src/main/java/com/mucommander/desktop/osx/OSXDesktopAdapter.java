@@ -23,7 +23,6 @@ import com.apple.eio.FileManager;
 
 import com.dd.plist.BinaryPropertyListParser;
 import com.dd.plist.NSString;
-import com.dd.plist.PropertyListFormatException;
 
 import com.mucommander.ui.macosx.OSXIntegration;
 import com.mucommander.ui.text.MultiLineLabel;
@@ -59,6 +58,8 @@ import java.util.List;
 import java.util.function.Consumer;
 
 import static com.mucommander.command.CommandManager.registerDefaultCommand;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * @author Nicolas Rinaudo
@@ -181,9 +182,11 @@ public class OSXDesktopAdapter extends DefaultDesktopAdapter {
             if (value != null) {
                 comment = value.getContent();
             }
-        } catch (IOException | PropertyListFormatException e) {
+        } catch (IOException e) {
             // Swallow the exception and do not interrupt the transfer
             LOGGER.debug("Error while parsing macOS file comment of source", e);
+        } catch (Exception ex) {
+            LOGGER.error("Error while parsing macOS file comment of source", ex);
         }
         if (comment != null && !"".equals(comment = comment.trim()) && !setFileComment(destPath, comment)) {
             LOGGER.error("Error while copying macOS file comment to %s", destPath);
