@@ -19,7 +19,7 @@
 
 package com.mucommander.commons.file.icon.impl;
 
-//import ch.randelshofer.quaqua.osx.OSXFile;
+import ch.randelshofer.quaqua.osx.OSXFile;
 import com.mucommander.commons.file.AbstractFile;
 import com.mucommander.commons.file.FileProtocols;
 import com.mucommander.commons.file.icon.CacheableFileIconProvider;
@@ -108,9 +108,9 @@ class SwingFileIconProviderImpl extends LocalFileIconProvider implements Cacheab
             // try to use quaqua OSXFile
             prepareQuaquaLibraries();
             // use ugly JFileChooser if error
-/*            if (!OSXFile.canWorkWithAliases()) {
+            if (!OSXFile.canWorkWithAliases()) {
                 fileChooser = new JFileChooser();
-            }*/
+            }
         } else {
             fileSystemView = FileSystemView.getFileSystemView();
         }

@@ -195,7 +195,7 @@ public class TextEditorCaretListener implements CaretListener {
     }
 
     private boolean isAvrAssembler() {
-        return textEditor.getTextArea().getFileType() == FileType.ASSEMBLER_AVR;
+        return textEditor.getTextArea().getFileType() == FileType.ASSEMBLER_X86;
     }
 
     private AbstractFile getIncludeFile(String fileName) {

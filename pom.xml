@@ -75,7 +75,7 @@
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
-        </repository>        
+        </repository>                         
     </repositories>    
 
     <dependencies>
@@ -146,6 +146,11 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>3.12.0</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.11.0</version>
         </dependency>
         <dependency>
             <groupId>commons-net</groupId>
@@ -264,9 +269,9 @@
             <version>3.6.18</version>
         </dependency>
         <dependency>
-            <groupId>org.fife.ui</groupId>
+            <groupId>com.fifesoft</groupId>
             <artifactId>rsyntaxtextarea</artifactId>
-            <version>2.0.4.1</version>
+            <version>3.2.0</version>
         </dependency>
         <dependency>
             <groupId>org.json</groupId>
@@ -309,7 +314,49 @@
             <groupId>com.github.stephenc.java-iso-tools</groupId>
             <artifactId>iso9660-writer</artifactId>
             <version>2.1.0</version>
-        </dependency>        
+        </dependency> 
+        <dependency>
+            <groupId>org.devzendo</groupId>
+            <artifactId>quaqua</artifactId>
+            <version>9.1</version>
+        </dependency>
+        <dependency>
+            <groupId>xerces</groupId>
+            <artifactId>xercesImpl</artifactId>
+            <version>2.12.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fifesoft.rtext</groupId>
+            <artifactId>fife.common</artifactId>
+            <version>5.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.icepdf.os</groupId>
+            <artifactId>icepdf-viewer</artifactId>
+            <version>6.1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.image4j</groupId>
+            <artifactId>image4j</artifactId>
+            <version>0.7zensight1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-imaging</artifactId>
+            <version>1.0-alpha3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.twelvemonkeys.imageio</groupId>
+            <artifactId>imageio-tga</artifactId>
+            <version>3.8.2</version>
+        </dependency>
+
+
+
+
+
+
+
 
 
 
@@ -355,6 +402,12 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-web</artifactId>
+            <version>${javafx.version}</version>
+            <classifier>${platform}</classifier>
+        </dependency> 
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-swing</artifactId>
             <version>${javafx.version}</version>
             <classifier>${platform}</classifier>
         </dependency>                                

@@ -17,7 +17,7 @@
  */
 package com.mucommander.ui.viewer.djvu;
 
-import com.lizardtech.djvubean.DjVuBean;
+//import com.lizardtech.djvubean.DjVuBean;
 import com.mucommander.commons.file.AbstractFile;
 import com.mucommander.ui.viewer.FileViewer;
 import org.fife.ui.StatusBar;
@@ -32,7 +32,7 @@ import java.io.IOException;
  */
 public class DjvuViewer extends FileViewer {
 
-    private final DjVuBean djvuBean;
+    //private final DjVuBean djvuBean;
 
     private final KeyAdapter keyAdapter = new KeyAdapter() {
         @Override
@@ -40,10 +40,10 @@ public class DjvuViewer extends FileViewer {
             boolean shift = e.isShiftDown();
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_LEFT:
-                    djvuBean.setPage(djvuBean.getPage() - (shift ? 10 : 1));
+                    //djvuBean.setPage(djvuBean.getPage() - (shift ? 10 : 1));
                     break;
                 case KeyEvent.VK_RIGHT:
-                    djvuBean.setPage(djvuBean.getPage() + (shift ? 10 : 1));
+                    //djvuBean.setPage(djvuBean.getPage() + (shift ? 10 : 1));
                     break;
             }
         }
@@ -51,14 +51,14 @@ public class DjvuViewer extends FileViewer {
 
     DjvuViewer() {
         super();
-        djvuBean = new DjVuBean();
-        JScrollPane scrollPane = new JScrollPane(djvuBean);
-        djvuBean.addKeyListener(keyAdapter);
-        setComponentToPresent(scrollPane);
+        //djvuBean = new DjVuBean();
+        //JScrollPane scrollPane = new JScrollPane(djvuBean);
+        //djvuBean.addKeyListener(keyAdapter);
+        //setComponentToPresent(scrollPane);
     }
     @Override
     protected void show(AbstractFile file) throws IOException {
-        djvuBean.setURL(file.getURL().getJavaNetURL());
+        //djvuBean.setURL(file.getURL().getJavaNetURL());
     }
 
     @Override

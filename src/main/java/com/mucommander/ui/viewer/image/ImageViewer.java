@@ -106,7 +106,7 @@ class ImageViewer extends FileViewer implements ActionListener {
 
     static {
         IIORegistry registry = IIORegistry.getDefaultInstance();
-        registry.registerServiceProvider(new com.realityinteractive.imageio.tga.TGAImageReaderSpi());
+        registry.registerServiceProvider(new com.twelvemonkeys.imageio.plugins.tga.TGAImageReaderSpi());
     }
 
 
